@@ -7,7 +7,7 @@
 
 
 function setup() {
-  createCanvas(1920, 1080);
+  createCanvas(400, 300);
 }
 
 function draw() {
@@ -16,5 +16,5 @@ function draw() {
   line(0, 50, 400, 300);
   rectMode(CENTER);
   rect(200, 150, 150, 150);
-
+  
 }
