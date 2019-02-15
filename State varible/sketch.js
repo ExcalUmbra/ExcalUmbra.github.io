@@ -32,5 +32,5 @@ function draw() {
     y -= 20;
     if (y <= 0) state = 0;
   }
-rect(x, y, rectSize, rectSize);
+  rect(x, y, rectSize, rectSize);
 }
