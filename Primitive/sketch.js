@@ -40,8 +40,3 @@ function keyPressed() {
     background(255);
   }
 }
-function keyisPressed() {
-  if (key === "f") {
-    loop(x, y, random(0, 255), random(0, 255));
-  }
-}
