@@ -22,7 +22,7 @@ function draw() {
     rect(random(0, windowWidth), random(0, windowHeight), random(0, windowWidth), random(0, windowHeight));
 
   }
-  ellipse(anonymous, 240, 240, 240, 240);
+  ellipse(anonymous, 300, 300, 300, 300);
   fill(random(0, 255), random(0, 255), random(0, 255));
   anonymous += 0;
   if (anonymous > width + 100) {

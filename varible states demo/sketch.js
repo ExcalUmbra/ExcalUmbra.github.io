@@ -13,44 +13,57 @@ let buttonOver = false;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  buttonX = width / 2;
-  buttonY = height / 4;
+  buttonX = width/2;
+  buttonY = height/4;
   buttonSize = 50;
-  rectX = width / 2;
-  rectY = height * 0.6;
-  rectW = width / 2;
-  rectH = height * 0.4;
+  rectX = width/2;
+  rectY = height*0.6;
+  rectW = width/2;
+  rectH = height *0.4;
   noStroke();
   ellipseMode(CENTER);
   rectMode(CENTER);
 }
-function mouseDistance(x1, y1, x2, y2) {
+
+function mouseDistance(x1, y1, x2, y2){
   let a = abs(x1 - x2);
   let b = abs(y1 - y2);
-  let c = sqrt(sq(a) + sq(b));
+  let c = sqrt(sq(a)+sq(b));
   return c;
 }
-function draw() {
-  print(mouseDistance(mouseX, mouseY, buttonX, buttonY));
-  background(255);
-  //draw a circle
-  if (mouseDistance(mouseX, mouseY, buttonX, buttonY) < buttonSize / 2) {
-    fill(40, 20, 30);
+
+function mousePressed(){
+  if (buttonOver){
+    fadeIn = !fadeIn;
   }
-  else {
-    fill(75, 60, 65);
+}
+
+function draw() {
+  background(255);
+  
+  //draw the button
+  if (mouseDistance(mouseX,mouseY,buttonX,buttonY)<buttonSize/2){
+    fill(200,40,50);
+    buttonOver = true;
+  }
+  else{
+    fill(160,30,30);
     buttonOver = false;
   }
   ellipse(buttonX, buttonY, buttonSize, buttonSize);
-  //draw a rectangle
-  if (fadeIn = true); {
+ 
+  //draw the rectangle
+  //if (frameCount % 2 === 0){
+  
+  if(fadeIn){
+    rectShade -= 2;
+  }
+  else{
     rectShade += 2;
   }
+  rectShade = constrain(rectShade, 0, 255);
+  //}
+  
   fill(rectShade);
   rect(rectX, rectY, rectW, rectH);
-}
-function mousePressed() {
-  if (buttonOver) {
-
-  }
 }

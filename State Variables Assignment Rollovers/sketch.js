@@ -13,9 +13,9 @@ function setup() {
 function draw() {
   background(0);
   rectMode(CENTER);
-  //fill()
-  rect(width/4, height/4, width/2, height/2);
-  rect(width/4, height - height/4, width/2, height/2);
-  rect(width - width/4, height/4, width/2, height/2);
-  rect(width - width/4, height - height/4, width/2, height/2);
+  //fill(0);
+  //rect(width / 4, height / 4, width / 2, height / 2);
+  rect(width / 4, height - height / 4, width / 2, height / 2);
+  //rect(width - width / 4, height / 4, width / 2, height / 2);
+  //rect(width - width / 4, height - height / 4, width / 2, height / 2);
 }
