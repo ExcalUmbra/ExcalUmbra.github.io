@@ -5,13 +5,11 @@
 // Extra for Experts:
 // - describe what you did to take this project "above and beyond"
 
-
 let quadrant = 1;  //1 - upper left  2 - upper right
 //3 - lower left  4 - lower right
 function setup() {
   createCanvas(400, 400);
 }
-
 function determineQuadrant() {
   if (mouseX < width / 2) { //left side
     if (mouseY < height / 2) quadrant = 1;  //top L
@@ -22,9 +20,6 @@ function determineQuadrant() {
     else quadrant = 4; //bottom R
   }
 }
-
-
-
 function draw() {
   background(220);
   determineQuadrant();

@@ -4,18 +4,54 @@
 //
 // Extra for Experts:
 // - describe what you did to take this project "above and beyond"
-
+let quadrant = 1;
+let mouseOver = false;
+let q1fill = 255;
+let q2fill = 255;
+let q3fill = 255;
+let q4fill = 255;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
+  stroke(255);
 }
-
+function determineQuadrant() {
+  if (mouseX < width / 2) { //left side
+    if (mouseY < height / 2) quadrant = 1;  //top L
+    else quadrant = 3;  //bottom L
+  }
+  else { //right side
+    if (mouseY < height / 2) quadrant = 2; //top R
+    else quadrant = 4; //bottom R
+  }
+}
 function draw() {
-  background(0);
+  background(255);
+  mouseOver = false;
+  if (mouseX, mouseY, mouseOver) {
+    //fill(random(0, 255), random(0, 255), random(0, 255));
+    mouseOver = true;
+  }
+  determineQuadrant();
+  print(quadrant);
   rectMode(CENTER);
-  //fill(0);
-  //rect(width / 4, height / 4, width / 2, height / 2);
+
+  if (quadrant === 1) {
+    q1fill = 0;
+  }
+  else {
+    q1fill = 255;
+  }
+
+  fill(q1fill);
+  rect(width / 4, height / 4, width / 2, height / 2);
+
+  fill(q2fill);
   rect(width / 4, height - height / 4, width / 2, height / 2);
-  //rect(width - width / 4, height / 4, width / 2, height / 2);
-  //rect(width - width / 4, height - height / 4, width / 2, height / 2);
+
+  fill(q3fill);
+  rect(width - width / 4, height / 4, width / 2, height / 2);
+
+  fill(q4fill);
+  rect(width - width / 4, height - height / 4, width / 2, height / 2);
 }
