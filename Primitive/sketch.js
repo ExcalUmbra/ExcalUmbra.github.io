@@ -8,11 +8,11 @@ let anonymous = 150;
 let randomShapes = false;
 let x = 500;
 let y = 500;
+let N = "By Allan";
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
   frameRate(10);
-  noStroke();
 }
 
 function draw() {
@@ -20,7 +20,6 @@ function draw() {
     ellipse(random(0, windowWidth), random(0, windowHeight), random(0, windowWidth), random(0, windowHeight));
     triangle(random(30, windowWidth), random(75, windowHeight), random(58, windowWidth), random(20, windowHeight), random(86, windowWidth), random(75, windowHeight));
     rect(random(0, windowWidth), random(0, windowHeight), random(0, windowWidth), random(0, windowHeight));
-
   }
   ellipse(anonymous, 300, 300, 300, 300);
   fill(random(0, 255), random(0, 255), random(0, 255));
@@ -29,7 +28,6 @@ function draw() {
     anonymous = 10;
   }
 }
-
 function keyPressed() {
   if (key === "r") {
     randomShapes = !randomShapes;
@@ -50,5 +48,10 @@ function keyPressed() {
   }
   if (key === "b") {
     background(255);
+  }
+  text(); {
+    textSize(64);
+    fill(80);
+    text(N, 20, 20, 280, 160);
   }
 }
