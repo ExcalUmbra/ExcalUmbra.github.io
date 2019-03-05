@@ -38,22 +38,22 @@ function draw() {
 
   if (quadrant === 1) {
     if(q1fill < 255) {
-      q1fill = q1fill += 5;
+      q1fill = q1fill += 3;
     }
   }
   else {
     if (q1fill > 0) {
-      q1fill = q1fill -= 5;
+      q1fill = q1fill -= 3;
     }
   }
   if (quadrant === 3) {
     if(q2fill < 255) {
-      q2fill = q2fill += 5;
+      q2fill = q2fill += 3;
     }
   }
   else {
     if (q2fill > 0) {
-      q2fill = q2fill -= 5;
+      q2fill = q2fill -= 3;
     }
   }
   if (quadrant === 2) {
@@ -63,17 +63,17 @@ function draw() {
   }
   else {
     if (q3fill > 0) {
-      q3fill = q3fill -= 5;
+      q3fill = q3fill -= 3;
     }
   }
   if (quadrant === 4) {
     if(q4fill < 255) {
-      q4fill = q4fill += 5;
+      q4fill = q4fill += 3;
     }
   }
   else {
     if (q4fill > 0) {
-      q4fill = q4fill -= 5;
+      q4fill = q4fill -= 3;
     }
   }
 
