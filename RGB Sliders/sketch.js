@@ -12,6 +12,9 @@ let shape1;
 let shape2;
 let shape3;
 let radio;
+let Square = (30, 20, 55);
+let circle = (30, 30, 20);
+let ellipse = (56, 46, 55, 55);
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
