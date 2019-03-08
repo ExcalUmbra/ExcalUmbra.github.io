@@ -16,7 +16,7 @@ function draw() {
 
   for (let x = 0; x <= width; x++) {
     for (let y = 0; y <= height; y++) {
-      if (x % 4 === 0 || y % 2) {
+      if (x % 50 === 0 || y % 50) {
         stroke(random(255), random(255), random(255));
         point(x, y);
       }
