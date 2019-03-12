@@ -8,7 +8,7 @@
 let colour = 0;
 let positionX = 0;
 let positionY = 0;
-let rSize = 20;
+let rSize = 25;
 function setup() {
   createCanvas(windowWidth, windowHeight);
   noLoop();
@@ -23,11 +23,11 @@ function draw() {
 }
 function mousePressed() {
   if (mouseButton === LEFT) {
-    rSize = rSize + 5;
+    rSize = rSize + 2;
     drawGrid();
   }
   if (mouseButton === RIGHT) {
-    rSize = rSize - 5;
+    rSize = rSize - 2;
     drawGrid();
   }
 }
