@@ -16,6 +16,8 @@ function setup() {
 function draw() {
   fill(0);
   noStroke();
-  rect(lineX,lineY, 200, 16, 16);
-  lineX = lineX + 5;
+  for (let x = 0; x < width; x++) {
+    rect(lineX, lineY, 200, 16, 16);
+    lineX = lineX + 5;
+  }
 }

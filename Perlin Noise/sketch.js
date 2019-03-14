@@ -8,8 +8,8 @@
 //let xoff1 = 0;
 //let xoff2 = 10000;
 
-let xOff = 0.03;
-let inc = 0.06;
+let xOff = 0;
+let inc = 0.01;
 let start = 0;
 
 function setup() {
@@ -25,8 +25,9 @@ function draw() {
   beginShape();
   for (let x = 0; x < width; x++) {
     stroke(255);
-    //let y = random(height);
-    let y = noise(xOff) * 10 + height / 2 + sin(xOff) * height / 2;
+    let y = random(height);
+    fill(random(255),random(255),random(255));
+    //let y = noise(xOff) * 10 + height / 2 + sin(xOff) * height / 2;
     vertex(x, y);
     xOff += inc;
   }
