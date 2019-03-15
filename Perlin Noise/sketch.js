@@ -25,8 +25,10 @@ function draw() {
   beginShape();
   for (let x = 0; x < width; x++) {
     stroke(255);
+
+
     let y = random(height);
-    fill(random(255),random(255),random(255));
+    fill(random(255), random(255), random(255));
     //let y = noise(xOff) * 10 + height / 2 + sin(xOff) * height / 2;
     vertex(x, y);
     xOff += inc;

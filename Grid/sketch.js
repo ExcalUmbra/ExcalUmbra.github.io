@@ -15,10 +15,10 @@ function setup() {
 }
 
 function draw() {
-  background(0);
-  //stroke(255);
-  //strokeWeight(2);
-  noStroke();
+  //background(0);
+  stroke(0);
+  strokeWeight(2);
+  //noStroke();
   drawGrid();
 }
 function mousePressed() {
@@ -35,7 +35,8 @@ function drawGrid() {
   positionX = 0;
   positionY = 0;
   for (let i = 0; i < width * height; i++) {
-    fill(0, 0, random(255));
+    //fill(0, 0, random(255));
+    fill(random(255),random(255), random(255));
     rect(positionX, positionY, rSize, rSize);
     positionX = positionX + rSize;
     if (positionX >= width) {
