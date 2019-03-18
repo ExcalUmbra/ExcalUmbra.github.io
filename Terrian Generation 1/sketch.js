@@ -5,12 +5,12 @@
 // Extra for Experts:
 // - describe what you did to take this project "above and beyond"
 
-let tWidth = 10;
+let tWidth = 80;
 let start = 0;
 function setup() {
   createCanvas(windowWidth, windowHeight);
   rectMode(CORNER);
-  noLoop();
+  //noLoop();
 }
 
 
@@ -23,10 +23,11 @@ function drawTerrian() {
   for (let x = 0; x < width; x += tWidth) {
     //rect(x, random(height), x + tWidth, height);
     let curHeight = noise(xOff) * height;
-    rect(x, curHeight, x + tWidth, height);
-    xOff += 0.012;
+    //fill(random(255),random(255),random(255));
+    rect(x, curHeight / 2, x + tWidth, height / 2);
+    xOff += 0.05;
   }
-  start += 0.4;
+  start += 0.01;
 }
 
 function draw() {
