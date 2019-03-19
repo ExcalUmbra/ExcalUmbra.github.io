@@ -3,6 +3,7 @@
 
 // let originalSpacing = 20;
 // let x = 100;
+// let y = 100;
 // let xSpeed = 5;
 
 function setup() {
@@ -17,8 +18,9 @@ function draw() {
   // rect(0,0,width,height);
   // drawBasicGrid(220);
   push();
-  translate(250,300);
-  circleBlack(0,0);
+  translate(400, 400);
+  circleBlack(0, 0);
+
   //drawBasicGrid(220);
   pop();
   //transformation one: TRANSLATION
@@ -65,18 +67,18 @@ function draw() {
 function face(x, y) {
   //draw a face at x,y
   push();
-  translate(x,y);
+  translate(x, y);
   ellipseMode(CENTER);
-  fill(200,200,0);
+  fill(200, 200, 0);
   stroke(0);
-  ellipse(0,0,80,80);
+  ellipse(0, 0, 80, 80);
   fill(90, 140, 30, 220);
   triangle(-20, 20, 20, 20, 0, 30);
   fill(0);
-  ellipse(-25,0,10,10);
-  ellipse(25,0,10,10);
+  ellipse(-25, 0, 10, 10);
+  ellipse(25, 0, 10, 10);
   strokeWeight(5);
-  line(-30,-10,30,-10);
+  line(-30, -10, 30, -10);
   strokeWeight(1);
   pop();
 
@@ -114,5 +116,8 @@ function drawBasicGrid(shade) {
 function circleBlack(x, y) {
   stroke(100);
   fill(255);
-  rect(x,y,360, 360, 240);
+  ellipse(x, y, 400, 400, 300);
+  stroke(50);
+  fill(0);
+  ellipse(x, y, 10, 10, 5);
 }
