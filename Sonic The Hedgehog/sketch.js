@@ -5,30 +5,26 @@
 // Extra for Experts:
 // - describe what you did to take this project "above and beyond"
 
-//Image Demo
-let lionL, lionR;
 let direction = 1;
+let SonicL, SonicR;
 let pinImages = [];
 let counter = 0;
-let speed = 1; //1 = 8 frame
-// 1 - moving left
-// 2 = moving right
+let speed = 1;
+
 function setup() {
   createCanvas(windowWidth, windowHeight);
-
 }
 
 function preload() {
-  lionL = loadImage('assets/lion-left.png');
-  lionR = loadImage('assets/lion-right.png');
+  SonicR = loadImage('assets/Sonic-01.png');
   for (let i = 0; i < 9; i++) {
-    pinImages.push(loadImage('assets/pin-0' + i + '.png'));
+    pinImages.push(loadImage('assets/Sonic-0' + i + '.png'));
   }
 }
 
 function draw() {
   background(220);
-  lions();
+  Sonic();
   image(pinImages[counter], width / 2, height / 2);
   speed = map(mouseX, 0, width, 1, 8);
   if (frameCount % int(speed) === 0) {
@@ -37,17 +33,17 @@ function draw() {
   }
 }
 
-function lions() {
+function Sonic() {
   moving();
   imageMode(CENTER);
   push();
   translate(mouseX, mouseY);
   scale(0.5);
   if (direction === 1) {
-    image(lionL, 0, 0);
+    image(SonicL, 0, 0);
   }
   else {
-    image(lionR, 0, 0);
+    image(SonicR, 0, 0);
   }
   pop();
 }
