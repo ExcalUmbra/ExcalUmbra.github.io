@@ -16,21 +16,30 @@ function setup() {
 }
 
 function preload() {
-  SonicR = loadImage('assets/Sonic-01.png');
-  for (let i = 0; i < 9; i++) {
-    pinImages.push(loadImage('assets/Sonic-0' + i + '.png'));
-  }
-}
+  SonicL = loadImage('assets/Sonic2-00.png');
+  SonicR = loadImage('assets/Sonic1.png');
+//   for (let i = 0; i < 9; i++) {
+//     pinImages.push(loadImage('assets/Sonic' + i + '.png'));
+//   }
+//   for (let i = 0; i < 9; i++) {
+//     pinImages.push(loadImage('assets/Sonic2-0' + i + '.png'));
+//   }
+// }
 
 function draw() {
   background(220);
   Sonic();
-  image(pinImages[counter], width / 2, height / 2);
-  speed = map(mouseX, 0, width, 1, 8);
-  if (frameCount % int(speed) === 0) {
-    counter++;
-    if (counter > 8) counter = 0;
-  }
+  imageMode(CENTER);
+  push();
+  translate(mouseX, mouseY);
+  scale(2);
+  // image(pinImages[counter], width / 25, height / 25);
+  // speed = map(mouseX, 0, width, 1, 8);
+  // if (frameCount % int(speed) === 0) {
+  //   counter++;
+  //   if (counter > 8) counter = 0;
+  // }
+  pop();
 }
 
 function Sonic() {
@@ -38,7 +47,7 @@ function Sonic() {
   imageMode(CENTER);
   push();
   translate(mouseX, mouseY);
-  scale(0.5);
+  scale(1);
   if (direction === 1) {
     image(SonicL, 0, 0);
   }
