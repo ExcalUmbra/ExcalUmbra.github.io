@@ -18,13 +18,13 @@ function setup() {
 function preload() {
   SonicL = loadImage('assets/Sonic2-00.png');
   SonicR = loadImage('assets/Sonic1.png');
-//   for (let i = 0; i < 9; i++) {
-//     pinImages.push(loadImage('assets/Sonic' + i + '.png'));
-//   }
-//   for (let i = 0; i < 9; i++) {
-//     pinImages.push(loadImage('assets/Sonic2-0' + i + '.png'));
-//   }
-// }
+  for (let i = 0; i < 9; i++) {
+    pinImages.push(loadImage('assets/Sonic' + i + '.png'));
+  }
+  for (let i = 0; i < 9; i++) {
+    pinImages.push(loadImage('assets/Sonic2-0' + i + '.png'));
+  }
+}
 
 function draw() {
   background(220);
@@ -33,12 +33,12 @@ function draw() {
   push();
   translate(mouseX, mouseY);
   scale(2);
-  // image(pinImages[counter], width / 25, height / 25);
-  // speed = map(mouseX, 0, width, 1, 8);
-  // if (frameCount % int(speed) === 0) {
-  //   counter++;
-  //   if (counter > 8) counter = 0;
-  // }
+  image(pinImages[counter], width / 25, height / 25);
+  speed = map(mouseX, 0, width, 1, 8);
+  if (frameCount % int(speed) === 0) {
+    counter++;
+    if (counter > 8) counter = 0;
+  }
   pop();
 }
 
