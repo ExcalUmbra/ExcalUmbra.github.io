@@ -33,7 +33,7 @@ function draw() {
   push();
   translate(mouseX, mouseY);
   scale(2);
-  image(pinImages[counter], width / 25, height / 25);
+  image(pinImages[counter], width / 5, height / 5);
   speed = map(mouseX, 0, width, 1, 8);
   if (frameCount % int(speed) === 0) {
     counter++;
