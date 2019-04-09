@@ -4,64 +4,51 @@
 //
 // Extra for Experts:
 // - describe what you did to take this project "above and beyond"
-
-let direction = 1;
-let SonicL, SonicR;
-let pinImages = [];
+let speed = 0;
+let speed1 = 1;
 let counter = 0;
-let speed = 1;
+let pinImages = [];
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
 }
 
 function preload() {
-  SonicL = loadImage('assets/Sonic2-00.png');
-  SonicR = loadImage('assets/Sonic1.png');
-  for (let i = 0; i < 9; i++) {
-    pinImages.push(loadImage('assets/Sonic' + i + '.png'));
+  for (let i = 1; i < 9; i++) {
+    pinImages.push(loadImage('assets/SonicL-0' + i + '.png'));
   }
-  for (let i = 0; i < 9; i++) {
-    pinImages.push(loadImage('assets/Sonic2-0' + i + '.png'));
+  for (let l = 1; l < 9; l++) {
+    pinImages.push(loadImage('assets/SonicR-0' + l + '.png'));
+  }
+  for (let a = 1; a < 6; a++) {
+    pinImages.push(loadImage('assets/SonicAFK0' + a + '.png'));
   }
 }
 
 function draw() {
+  frameRate(60);
   background(220);
-  Sonic();
-  imageMode(CENTER);
-  push();
-  translate(mouseX, mouseY);
-  scale(2);
-  image(pinImages[counter], width / 5, height / 5);
-  speed = map(mouseX, 0, width, 1, 8);
-  if (frameCount % int(speed) === 0) {
-    counter++;
-    if (counter > 8) counter = 0;
-  }
-  pop();
-}
 
-function Sonic() {
-  moving();
-  imageMode(CENTER);
-  push();
-  translate(mouseX, mouseY);
-  scale(1);
-  if (direction === 1) {
-    image(SonicL, 0, 0);
-  }
-  else {
-    image(SonicR, 0, 0);
-  }
-  pop();
-}
+  image(pinImages[counter], speed, height / 2, 100, 200);
 
-function moving() {
-  if (mouseX > pmouseX) {
-    direction = 2;
+  if (key === "ArrowLeft") {
+    speed--;
+    if (frameCount % 1.5 === 0) {
+      counter++;
+      if (counter > 7) counter = 0;
+    }
   }
-  else if (mouseX < pmouseX) {
-    direction = 1;
+  if (key === "ArrowRight") {
+    speed++;
+    if (frameCount % 1.5 === 0) {
+      counter++;
+      if (counter > 16) counter = 9;
+    }
+  }
+  if (key === " ") {
+    speed;
+    if (frameCount % 20 === 0)
+      counter++;
+    if (counter > 20 || counter < 16) counter = 16;
   }
 }
