@@ -33,14 +33,14 @@ function draw() {
 
   if (key === "ArrowLeft") {
     speed--;
-    if (frameCount % 1.5 === 0) {
+    if (frameCount % 5 === 0) {
       counter++;
       if (counter > 7) counter = 0;
     }
   }
   if (key === "ArrowRight") {
     speed++;
-    if (frameCount % 1.5 === 0) {
+    if (frameCount % 5 === 0) {
       counter++;
       if (counter > 16) counter = 9;
     }
