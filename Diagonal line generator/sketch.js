@@ -5,7 +5,7 @@
 // Extra for Experts:
 // - describe what you did to take this project "above and beyond"
 
-const spacing = 2;
+const spacing = 15;
 function setup() {
   createCanvas(windowWidth, windowHeight);
   noLoop();
