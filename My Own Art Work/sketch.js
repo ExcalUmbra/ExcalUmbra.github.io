@@ -4,25 +4,40 @@
 //
 // Extra for Experts:
 // - describe what you did to take this project "above and beyond"
-let tWidth = 1;
-let start = 0;
+const squareSize = 20;
+let black = 0;
+let squareX = 250;
+let squareY = 250;
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  rectMode(CORNERS);
-  //noLoop();
+  rectMode(CENTER);
+  noLoop();
 }
 
-
-function drawTerrain() {
-  let xOff = start;
-  for (let x = 0; x < width; x += tWidth) {
-    let curHeight = noise(xOff) * height * 0.5;
-    stroke(0);
-    rect(x, curHeight, x + tWidth, height);
+function drawRectangles(offset) {
+  for (let x = 0; x < width; x += squareSize) {
+    for (let y = 0; y < height; y += squareSize) {
+      noStroke();
+      setFill();
+      rect(squareX+offset, squareY+offset, squareSize, squareSize);
+      squareX -= squareSize;
+      squareY -= squareSize;
+    }
+    setFill();
   }
-  xOff += 0.01;
 }
+
 function draw() {
-  background(220);
-  drawTerrain();
+  background(225);
+  drawRectangles(600.4);
+}
+function setFill() {
+  if (black === 0) {
+    fill(random(255), random(255), random(255));
+    black = 1;
+  }
+  else {
+    fill(0);
+    black = 0;
+  }
 }
