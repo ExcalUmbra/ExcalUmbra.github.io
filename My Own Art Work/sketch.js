@@ -18,7 +18,7 @@ function drawRecttop(OffSet) {
     for (let y = 0; y < height / 4; y += Cube) {
       noStroke();
       setFill();
-      rect(b - OffSet, y - OffSet, b, y, Cube / 2, Cube);
+      rect(b - OffSet, y - OffSet, b, y, Cube/4, Cube);
     }
   }
   setFill();
@@ -28,7 +28,7 @@ function drawRectbottom(offSet) {
     for (let s = 0; s < height/4; s += dDouble) {
       noStroke();
       setFill();
-      rect(a - offSet, s + offSet, a,s, dDouble / 2, dDouble);
+      rect(a - offSet, s + offSet, a,s, dDouble/4, dDouble);
     }
   }
   setFill();
