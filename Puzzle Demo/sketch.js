@@ -1,21 +1,44 @@
 // Grid Demo
+let randomNum;
 const NUM_ROWS = 4;
 const NUM_COLS = 5;
 let rectWidth, rectHeight;
 let currentRow, currentCol;
-let winBlack = 16;
-let winWhite = 4;
-let gridData = [[0, 0, 0, 255, 0],
-                [255, 0, 255, 0, 255],
-                [0, 255, 0, 0, 0],
-                [0, 0, 255, 0, 255]
-              ];
+let winBlack = 0;
+let winWhite = 0;
+let gridData = [[, , , , ],
+                [, , , , ],
+                [, , , , ],
+                [, , , , ]
+];
+
+function randomNizer() {
+  randomNum = int(random(0, 2));
+  if (randomNum === 1){
+    winWhite += 1;
+    return 255;
+  }
+  else {
+    winBlack += 1;
+    return 0;
+  }
+}
+
+function randoBoardmix(){
+  for (let x = 0; x < NUM_COLS;x++){
+    for(let y = 0; y < NUM_ROWS; y++){
+      gridData[y][x] = randomNizer();
+    }
+  }
+}
+
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
   rectWidth = width / NUM_COLS;
   rectHeight = height / NUM_ROWS;
   random([gridData], [gridData]);
+  randoBoardmix();
 }
 
 function drawGrid() {
@@ -49,12 +72,12 @@ function mousePressed() {
   }
 }
 
-function winFactor(){
-  if (winBlack === 20 || winWhite === 20){
+function winFactor() {
+  if (winBlack === 20 || winWhite === 20) {
     textSize(200);
     textAlign(CENTER);
-    fill(255,0,0);
-    text('You WIN', width/2 ,height/2);
+    fill(0, 255, 0);
+    text("YOU WIN!!!", width / 2, height / 2);
   }
 }
 
@@ -77,4 +100,5 @@ function draw() {
   background(220);
   determineActiveSquare();
   drawGrid();
+  winFactor();
 }
