@@ -10,7 +10,7 @@ let pArray = [];
 let gear;
 
 function preload(){
-  gear = loadImage("/assets/gear.png");
+  //gear = loadImage("/assets/gear.png");
 }
 
 function setup() {
@@ -83,8 +83,8 @@ class Particle{
     translate(this.x,this.y);
     scale(map(this.lifetime,0,this.maxLifetime,0,1));
     rotate(radians(this.steps*3));
-    //ellipse(0,0,this.size,this.size);
-    image(gear,0,0,this.size,this.size);
+    ellipse(0,0,this.size,this.size);
+    //image(gear,0,0,this.size,this.size);
     pop();
   }
 
