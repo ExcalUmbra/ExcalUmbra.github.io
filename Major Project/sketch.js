@@ -5,25 +5,39 @@
 // Extra for Experts:
 // - describe what you did to take this project "above and beyond"
 
-let Ssize = 50;
-let x, y = 0;
+let player;
+
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  rectMode(CENTER);
-  noLoop();
+  player = (new Player(width/2, height/2));
 }
 
 function draw() {
   background(225);
-  rect(width / 2, height / 2, Ssize, Ssize);
+  player.move();
+  player.display();
 }
 
-function player1() {
- 
-}
+class Player {
+  constructor (x_,y_){
+    this.x = x_;
+    this.y = y_;
+    this.size = 50;
 
-function keyPressed() {
-  if (key === "w") {
+
+  }
+
+  move(){
     
+  }
+
+
+  display(){
+    rectMode(CENTER);
+    fill(255);
+    push();
+    translate(this.x,this.y);
+    rect(0,0, this.size, this.size);
+    pop();
   }
 }
