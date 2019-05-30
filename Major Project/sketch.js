@@ -7,6 +7,11 @@
 
 let check = [];
 let player;
+let up = false;
+let down = false;
+let left = false;
+let right = false;
+
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -33,23 +38,22 @@ class Player {
   move() {
     this.xSpeed = 15;
     this.ySpeed = 15;
-    if (keyIsPressed) {
-      if (keyCode === UP_ARROW) {
-        this.y -= this.xSpeed;
-        this.angle -= 15;
-      }
-      if (keyCode === DOWN_ARROW) {
-        this.y += this.xSpeed;
-        this.angle += 15;
-      }
-      if (keyCode === LEFT_ARROW) {
-        this.x -= this.xSpeed;
-        this.angle -= 15;
-      }
-      if (keyCode === RIGHT_ARROW) {
-        this.x += this.xSpeed;
-        this.angle += 15;
-      }
+    print(up, down, left, right);
+    if (up === true) {
+      this.y -= this.xSpeed;
+      this.angle -= 25;
+    }
+    if (down === true) {
+      this.y += this.xSpeed;
+      this.angle += 25;
+    }
+    if (left === true) {
+      this.x -= this.xSpeed;
+      this.angle -= 25;
+    }
+    if (right === true) {
+      this.x += this.xSpeed;
+      this.angle += 25;
     }
   }
 
@@ -63,4 +67,18 @@ class Player {
     rect(0, 0, this.size, this.size);
     pop();
   }
+}
+
+function keyPressed() {
+  if (keyCode === UP_ARROW) up = true;
+  if (keyCode === DOWN_ARROW) down = true;
+  if (keyCode === LEFT_ARROW) left = true;
+  if (keyCode === RIGHT_ARROW) right = true;
+}
+
+function keyReleased() {
+  if (keyCode === UP_ARROW) up = false;
+  if (keyCode === DOWN_ARROW) down = false;
+  if (keyCode === LEFT_ARROW) left = false;
+  if (keyCode === RIGHT_ARROW) right = false;
 }
