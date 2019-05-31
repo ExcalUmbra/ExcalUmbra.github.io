@@ -12,7 +12,6 @@ let down = false;
 let left = false;
 let right = false;
 
-
 function setup() {
   createCanvas(windowWidth, windowHeight);
   smooth();
@@ -25,14 +24,13 @@ function draw() {
   player.move();
 }
 
+
 class Player {
   constructor() {
     this.x = width / 2;
     this.y = height / 2;
     this.size = 50;
     this.angle = 0;
-
-
   }
 
   move() {
@@ -40,24 +38,30 @@ class Player {
     this.ySpeed = 15;
     print(up, down, left, right);
     if (up === true) {
-      this.y -= this.xSpeed;
-      this.angle -= 25;
+      if (this.y > 34) {
+        this.y -= this.xSpeed;
+        this.angle -= 25;
+      }
     }
     if (down === true) {
-      this.y += this.xSpeed;
-      this.angle += 25;
+      if (this.y < 748) {
+        this.y += this.xSpeed;
+        this.angle += 25;
+      }
     }
     if (left === true) {
-      this.x -= this.xSpeed;
-      this.angle -= 25;
+      if (this.x > 0) {
+        this.x -= this.xSpeed;
+        this.angle -= 25;
+      }
     }
     if (right === true) {
-      this.x += this.xSpeed;
-      this.angle += 25;
+      if (this.x < 1600) {
+        this.x += this.xSpeed;
+        this.angle += 25;
+      }
     }
   }
-
-
   display() {
     rectMode(CENTER);
     fill(255);
@@ -82,3 +86,4 @@ function keyReleased() {
   if (keyCode === LEFT_ARROW) left = false;
   if (keyCode === RIGHT_ARROW) right = false;
 }
+
