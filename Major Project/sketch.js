@@ -5,17 +5,15 @@
 // Extra for Experts:
 // - describe what you did to take this project "above and beyond"
 
-let check = [];
 let player;
-let up = false;
-let down = false;
-let left = false;
-let right = false;
+let up, down, left, right = false;
+let bullets;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
   smooth();
   player = (new Player(width / 2, height / 2));
+  bullets = (new Bullets(width/2,height/2));
 }
 
 function draw() {
@@ -40,31 +38,32 @@ class Player {
     if (up === true) {
       if (this.y > 34) {
         this.y -= this.xSpeed;
-        this.angle -= 25;
+        this.angle -= 15;
       }
     }
     if (down === true) {
-      if (this.y < 748) {
+      if (this.y < 758) {
         this.y += this.xSpeed;
-        this.angle += 25;
+        this.angle += 15;
       }
     }
     if (left === true) {
-      if (this.x > 0) {
+      if (this.x > 34) {
         this.x -= this.xSpeed;
-        this.angle -= 25;
+        this.angle -= 15;
       }
     }
     if (right === true) {
-      if (this.x < 1600) {
+      if (this.x < 1568) {
         this.x += this.xSpeed;
-        this.angle += 25;
+        this.angle += 15;
       }
     }
   }
   display() {
     rectMode(CENTER);
     fill(255);
+    strokeWeight(2);
     push();
     translate(this.x, this.y);
     rotate(radians(this.angle));
@@ -87,3 +86,43 @@ function keyReleased() {
   if (keyCode === RIGHT_ARROW) right = false;
 }
 
+class Bullets {
+  constructor() {
+    this.x;
+    this.y;
+    this.xSpeed;
+    this.ySpeed;
+    this.life = 255;
+    this.size = 10;
+  }
+  Bullets() {
+
+  }
+  move() {
+    x = x + xSpeed;
+    y = y + ySpeed;
+
+  }
+  display() {
+    rectMode(CENTER);
+    fill(244,2,2);
+    noStroke();
+    push();
+    translate(mouseX, mouseY,this.x, this.y);
+    rect(30, 20, 55, 55)
+    pop();
+
+  }
+}
+
+class Shield {
+  constructor() {
+
+  }
+  move() {
+
+  }
+  display() {
+
+  }
+}
