@@ -13,13 +13,23 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
   smooth();
   player = (new Player(width / 2, height / 2));
-  bullets = (new Bullets);
+  
+
+}
+
+function mousePressed(){
+  bullets.push(new Bullets(mouseX, mouseY));
 }
 
 function draw() {
   background(225);
   player.display();
   player.move();
+
+  for (let i = 0; i < bullets.length; i++){
+    bullets[i].move();
+    bullets[i].display();
+  }
   // Bullets.display();
   // Bullets.move();
 
@@ -89,38 +99,32 @@ function keyReleased() {
   if (keyCode === RIGHT_ARROW) right = false;
 }
 class Bullets {
-  constructor() {
-    this.x;
-    this.y;
-    this.w;
-    this.xSpeed;
-    this.ySpeed;
+  constructor(x_,y_) {
+    this.x = x_;
+    this.y = y_;
+    this.w = 10;
+    this.xSpeed = 4;
+    this.ySpeed = 0;
     this.life = 255;
     this.size = 10;
     this.bulletVisible = false;
   }
-  Bullets(tempX, tempY, tempW, tempXspeed, tempYspeed) {
-    this.x = tempX;
-    this.y = tempY;
-    this.w = tempW;
-    this.xspeed = tempXspeed;
-    this.yspeed = tempYspeed;
-  }
+ 
   move() {
-    this.x = this.x + this.xspeed;
-    this.x = this.x + this.yspeed;
-    if (this.x < 4) {
+    this.x = this.x + this.xSpeed;
+    this.x = this.x + this.ySpeed;
+    if (this.x < 20) {
       this.life -= -1;
     }
-    if (this.y < 4) {
+    if (this.y < 20) {
       this.life -= -1;
     }
-    if (this.x < width - 4) {
+    if (this.x > width - 20) {
       this.life -= -1;
     }
-    if (this.y < width - 4) {
-      this.life -= -1;
-    }
+    // if (this.y < width - 4) {
+    //   this.life -= -1;
+    // }
     if (this.life === -1) {
       this.bulletVisable = false;
     }
@@ -130,7 +134,7 @@ class Bullets {
     fill(244, 2, 2);
     noStroke();
     push();
-    translate(mouseX, mouseY, this.x, this.y);
+    translate(this.x, this.y);
     rect(30, 20, 55, 55);
     pop();
 
