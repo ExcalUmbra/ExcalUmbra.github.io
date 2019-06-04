@@ -7,19 +7,22 @@
 
 let player;
 let up, down, left, right = false;
-let bullets;
+let bullets = [];
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
   smooth();
   player = (new Player(width / 2, height / 2));
-  bullets = (new Bullets(width/2,height/2));
+  bullets = (new Bullets);
 }
 
 function draw() {
   background(225);
   player.display();
   player.move();
+  // Bullets.display();
+  // Bullets.move();
+
 }
 
 
@@ -85,31 +88,50 @@ function keyReleased() {
   if (keyCode === LEFT_ARROW) left = false;
   if (keyCode === RIGHT_ARROW) right = false;
 }
-
 class Bullets {
   constructor() {
     this.x;
     this.y;
+    this.w;
     this.xSpeed;
     this.ySpeed;
     this.life = 255;
     this.size = 10;
+    this.bulletVisible = false;
   }
-  Bullets() {
-
+  Bullets(tempX, tempY, tempW, tempXspeed, tempYspeed) {
+    this.x = tempX;
+    this.y = tempY;
+    this.w = tempW;
+    this.xspeed = tempXspeed;
+    this.yspeed = tempYspeed;
   }
   move() {
-    x = x + xSpeed;
-    y = y + ySpeed;
-
+    this.x = this.x + this.xspeed;
+    this.x = this.x + this.yspeed;
+    if (this.x < 4) {
+      this.life -= -1;
+    }
+    if (this.y < 4) {
+      this.life -= -1;
+    }
+    if (this.x < width - 4) {
+      this.life -= -1;
+    }
+    if (this.y < width - 4) {
+      this.life -= -1;
+    }
+    if (this.life === -1) {
+      this.bulletVisable = false;
+    }
   }
   display() {
     rectMode(CENTER);
-    fill(244,2,2);
+    fill(244, 2, 2);
     noStroke();
     push();
-    translate(mouseX, mouseY,this.x, this.y);
-    rect(30, 20, 55, 55)
+    translate(mouseX, mouseY, this.x, this.y);
+    rect(30, 20, 55, 55);
     pop();
 
   }
