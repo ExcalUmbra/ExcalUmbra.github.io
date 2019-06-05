@@ -13,12 +13,24 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
   smooth();
   player = (new Player(width / 2, height / 2));
-  
-
 }
 
-function mousePressed(){
-  bullets.push(new Bullets(mouseX, mouseY));
+function mousePressed() {
+
+
+  let mouse = createVector(mouseX, mouseY);
+  let center = createVector(player.x, player.y);
+  mouse.sub(center);
+  mouse.normalize();
+  mouse.mult(25);
+  //stroke(0);
+  line(player.x, player.y, player.x + mouse.x, player.y + mouse.y);
+  print(player.x, player.y, player.x + mouse.x, player.y + mouse.y);
+  // this.translate(width / 2, height / 2);
+  // this.line(0,0,this.mouse,this.x,this.mouse,this.y);
+
+
+  bullets.push(new Bullets(player.x, player.y, mouse.x, mouse.y));
 }
 
 function draw() {
@@ -26,12 +38,12 @@ function draw() {
   player.display();
   player.move();
 
-  for (let i = 0; i < bullets.length; i++){
+  for (let i = 0; i < bullets.length; i++) {
     bullets[i].move();
     bullets[i].display();
+
   }
-  // Bullets.display();
-  // Bullets.move();
+
 
 }
 
@@ -99,20 +111,20 @@ function keyReleased() {
   if (keyCode === RIGHT_ARROW) right = false;
 }
 class Bullets {
-  constructor(x_,y_) {
+  constructor(x_,y_,xSpeed_, ySpeed_) {
     this.x = x_;
     this.y = y_;
     this.w = 10;
-    this.xSpeed = 4;
-    this.ySpeed = 0;
+    this.xSpeed = xSpeed_;
+    this.ySpeed = ySpeed_;
     this.life = 255;
     this.size = 10;
     this.bulletVisible = false;
   }
- 
+
   move() {
     this.x = this.x + this.xSpeed;
-    this.x = this.x + this.ySpeed;
+    this.y = this.y + this.ySpeed;
     if (this.x < 20) {
       this.life -= -1;
     }
@@ -129,6 +141,7 @@ class Bullets {
       this.bulletVisable = false;
     }
   }
+
   display() {
     rectMode(CENTER);
     fill(244, 2, 2);
