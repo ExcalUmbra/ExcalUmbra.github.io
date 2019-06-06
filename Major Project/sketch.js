@@ -8,28 +8,25 @@
 let player;
 let up, down, left, right = false;
 let bullets = [];
+let shield;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
   smooth();
   player = (new Player(width / 2, height / 2));
+  shield = (new Shield(player.x, player.y));
 }
 
 function mousePressed() {
-
-
   let mouse = createVector(mouseX, mouseY);
   let center = createVector(player.x, player.y);
   mouse.sub(center);
   mouse.normalize();
-  mouse.mult(25);
-  //stroke(0);
+  mouse.mult(35);
+  stroke(2);
   line(player.x, player.y, player.x + mouse.x, player.y + mouse.y);
   print(player.x, player.y, player.x + mouse.x, player.y + mouse.y);
-  // this.translate(width / 2, height / 2);
-  // this.line(0,0,this.mouse,this.x,this.mouse,this.y);
-
-
+  stroke(2);
   bullets.push(new Bullets(player.x, player.y, mouse.x, mouse.y));
 }
 
@@ -37,17 +34,13 @@ function draw() {
   background(225);
   player.display();
   player.move();
-
+  shield.move(player.x, player.y);
+  shield.display();
   for (let i = 0; i < bullets.length; i++) {
     bullets[i].move();
     bullets[i].display();
-
   }
-
-
 }
-
-
 class Player {
   constructor() {
     this.x = width / 2;
@@ -67,7 +60,7 @@ class Player {
       }
     }
     if (down === true) {
-      if (this.y < 758) {
+      if (this.y < 1150) {
         this.y += this.xSpeed;
         this.angle += 15;
       }
@@ -79,7 +72,7 @@ class Player {
       }
     }
     if (right === true) {
-      if (this.x < 1568) {
+      if (this.x < 2358) {
         this.x += this.xSpeed;
         this.angle += 15;
       }
@@ -87,7 +80,7 @@ class Player {
   }
   display() {
     rectMode(CENTER);
-    fill(255);
+    fill(random(255), random(255), random(255));
     strokeWeight(2);
     push();
     translate(this.x, this.y);
@@ -96,7 +89,6 @@ class Player {
     pop();
   }
 }
-
 function keyPressed() {
   if (keyCode === UP_ARROW) up = true;
   if (keyCode === DOWN_ARROW) down = true;
@@ -111,7 +103,7 @@ function keyReleased() {
   if (keyCode === RIGHT_ARROW) right = false;
 }
 class Bullets {
-  constructor(x_,y_,xSpeed_, ySpeed_) {
+  constructor(x_, y_, xSpeed_, ySpeed_) {
     this.x = x_;
     this.y = y_;
     this.w = 10;
@@ -121,7 +113,6 @@ class Bullets {
     this.size = 10;
     this.bulletVisible = false;
   }
-
   move() {
     this.x = this.x + this.xSpeed;
     this.y = this.y + this.ySpeed;
@@ -134,34 +125,40 @@ class Bullets {
     if (this.x > width - 20) {
       this.life -= -1;
     }
-    // if (this.y < width - 4) {
-    //   this.life -= -1;
-    // }
     if (this.life === -1) {
       this.bulletVisable = false;
     }
   }
-
   display() {
     rectMode(CENTER);
     fill(244, 2, 2);
     noStroke();
     push();
     translate(this.x, this.y);
-    rect(30, 20, 55, 55);
+    rect(0, 0, 25, 25);
     pop();
-
   }
 }
-
 class Shield {
-  constructor() {
-
+  constructor(x_,y_) {
+    this.x = x_;
+    this.y = y_;
+   
   }
-  move() {
-
+  move(x_, y_) {
+    this.x = x_;
+    this.y = y_;
   }
+
   display() {
-
+    ellipseMode(CENTER);
+    stroke(0, 0, 244);
+    strokeWeight(5);
+    noFill();
+    push();
+    translate(this.x, this.y);
+    rotate(radians(mouseY));
+    arc(0, 0, 175, 175, 0, PI); 
+    pop();
   }
 }
