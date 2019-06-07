@@ -12,14 +12,12 @@ let shield;
 let mouse, center;
 let V0;
 
-// print(angle);
-
 function setup() {
   createCanvas(windowWidth, windowHeight);
   smooth();
-  V0 = createVector(1,0);
-  player = (new Player(width / 2, height / 2));
-  shield = (new Shield(player.x, player.y));
+  V0 = createVector(1, 0);
+  player = new Player(width / 2, height / 2);
+  shield = new Shield(player.x, player.y);
 }
 
 function makeMouseVector() {
@@ -69,7 +67,7 @@ class Player {
       }
     }
     if (down === true) {
-      if (this.y < 1150) {
+      if (this.y < 750) {
         this.y += this.xSpeed;
         this.angle += 15;
       }
@@ -144,16 +142,18 @@ class Bullets {
     noStroke();
     push();
     translate(this.x, this.y);
-    rect(0, 0, 25, 25);
+    rect(0, 0, 15, 15);
     pop();
   }
 }
+
 class Shield {
   constructor(x_, y_) {
     this.x = x_;
     this.y = y_;
     this.angle = 0;
   }
+
   move(x_, y_) {
     this.x = x_;
     this.y = y_;
@@ -162,12 +162,12 @@ class Shield {
   display() {
     ellipseMode(CENTER);
     stroke(0, 0, 244);
-    strokeWeight(5);
+    strokeWeight(3.5);
     noFill();
     push();
     translate(this.x, this.y);
-    let angle = V0.angleBetween(mouse);
-    rotate(angle);
+    let angle = atan2(mouse.x , mouse.y);
+    rotate(-angle);
     arc(0, 0, 175, 175, 0, PI);
     pop();
   }
