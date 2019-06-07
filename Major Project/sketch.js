@@ -9,21 +9,29 @@ let player;
 let up, down, left, right = false;
 let bullets = [];
 let shield;
+let mouse, center;
+let V0;
+
+// print(angle);
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
   smooth();
+  V0 = createVector(1,0);
   player = (new Player(width / 2, height / 2));
   shield = (new Shield(player.x, player.y));
 }
 
-function mousePressed() {
-  let mouse = createVector(mouseX, mouseY);
-  let center = createVector(player.x, player.y);
+function makeMouseVector() {
+  mouse = createVector(mouseX, mouseY);
+  center = createVector(player.x, player.y);
   mouse.sub(center);
   mouse.normalize();
   mouse.mult(35);
   stroke(2);
+}
+
+function mousePressed() {
   line(player.x, player.y, player.x + mouse.x, player.y + mouse.y);
   print(player.x, player.y, player.x + mouse.x, player.y + mouse.y);
   stroke(2);
@@ -32,6 +40,7 @@ function mousePressed() {
 
 function draw() {
   background(225);
+  makeMouseVector();
   player.display();
   player.move();
   shield.move(player.x, player.y);
@@ -140,10 +149,10 @@ class Bullets {
   }
 }
 class Shield {
-  constructor(x_,y_) {
+  constructor(x_, y_) {
     this.x = x_;
     this.y = y_;
-   
+    this.angle = 0;
   }
   move(x_, y_) {
     this.x = x_;
@@ -157,8 +166,9 @@ class Shield {
     noFill();
     push();
     translate(this.x, this.y);
-    rotate(radians(mouseY));
-    arc(0, 0, 175, 175, 0, PI); 
+    let angle = V0.angleBetween(mouse);
+    rotate(angle);
+    arc(0, 0, 175, 175, 0, PI);
     pop();
   }
 }
