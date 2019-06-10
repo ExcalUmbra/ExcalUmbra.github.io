@@ -11,6 +11,7 @@ let bullets = [];
 let shield;
 let mouse, center;
 let V0;
+let enemy;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -18,6 +19,7 @@ function setup() {
   V0 = createVector(1, 0);
   player = new Player(width / 2, height / 2);
   shield = new Shield(player.x, player.y);
+  enemy = new Enemy(player.x, player.y);
 }
 
 function makeMouseVector() {
@@ -43,6 +45,8 @@ function draw() {
   player.move();
   shield.move(player.x, player.y);
   shield.display();
+  enemy.display();
+  enemy.move();
   for (let i = 0; i < bullets.length; i++) {
     bullets[i].move();
     bullets[i].display();
@@ -79,7 +83,7 @@ class Player {
       }
     }
     if (right === true) {
-      if (this.x < 2358) {
+      if (this.x < 1580) {
         this.x += this.xSpeed;
         this.angle += 15;
       }
@@ -166,9 +170,41 @@ class Shield {
     noFill();
     push();
     translate(this.x, this.y);
-    let angle = atan2(mouse.x , mouse.y);
+    let angle = atan2(mouse.x, mouse.y);
     rotate(-angle);
     arc(0, 0, 175, 175, 0, PI);
+    pop();
+  }
+}
+
+class Enemy {
+  constructor(x_, y_) {
+    this.x = x_;
+    this.y = y_;
+    this.size = 50;
+    this.angle = 0;
+    this.xSpeed;
+    this.ySpeed;
+    this.enemyVector;
+  }
+
+  move() {
+    this.enemyVector = createVector(this.x, this.y);
+    center = createVector(player.x, player.y);
+    this.enemyVector.sub(center);
+    this.enemyVector.normalize();
+    this.enemyVector.mult(2);
+    this.x += this.enemyVector.x;
+    this.y += this.enemyVector.y;
+  }
+
+  display() {
+    rectMode(CORNER);
+    fill(0);
+    push();
+    translate(this.x, this.y);
+    rotate(radians(this.angle));
+    rect(0, 0, this.size, this.size);
     pop();
   }
 }
