@@ -11,7 +11,7 @@ let bullets = [];
 let shield;
 let mouse, center;
 let V0;
-let enemy;
+let enemy = [];
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -41,15 +41,28 @@ function mousePressed() {
 function draw() {
   background(225);
   makeMouseVector();
-  player.display();
   player.move();
+  player.display();
   shield.move(player.x, player.y);
   shield.display();
-  enemy.display();
   enemy.move();
+  enemy.display();
+  //for loop, 1ce for each enemy
+  //bull...[i].checkE
   for (let i = 0; i < bullets.length; i++) {
     bullets[i].move();
     bullets[i].display();
+    for (let a = 0; a < enemy.length; a++) {
+      if (bullets[i].hitEnemy(enemy[a])) {
+        bullets[i];
+        enemy[a];
+        clear();
+        //remove bullet
+        //remove enemy
+        //create new enemies
+      }
+
+    }
   }
 }
 class Player {
@@ -124,6 +137,10 @@ class Bullets {
     this.size = 10;
     this.bulletVisible = false;
   }
+
+  hitEnemy(e) {
+    return false;
+  }
   move() {
     this.x = this.x + this.xSpeed;
     this.y = this.y + this.ySpeed;
@@ -163,6 +180,8 @@ class Shield {
     this.y = y_;
   }
 
+
+
   display() {
     ellipseMode(CENTER);
     stroke(0, 0, 244);
@@ -179,8 +198,8 @@ class Shield {
 
 class Enemy {
   constructor(x_, y_) {
-    this.x = x_;
-    this.y = y_;
+    this.x = random(0, windowWidth);
+    this.y = random(0, windowHeight);
     this.size = 50;
     this.angle = 0;
     this.xSpeed;
@@ -193,7 +212,7 @@ class Enemy {
     center = createVector(player.x, player.y);
     this.enemyVector.sub(center);
     this.enemyVector.normalize();
-    this.enemyVector.mult(2);
+    this.enemyVector.mult(-1);
     this.x += this.enemyVector.x;
     this.y += this.enemyVector.y;
   }
