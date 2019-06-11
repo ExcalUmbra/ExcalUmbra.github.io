@@ -54,14 +54,12 @@ function draw() {
     bullets[i].display();
     for (let a = 0; a < enemy.length; a++) {
       if (bullets[i].hitEnemy(enemy[a])) {
-        bullets[i];
-        enemy[a];
-        clear();
-        //remove bullet
-        //remove enemy
+        bullets.splice(i, 1, new Bullets);
+        enemy.splice(a, 1, new Enemy);
+        //bullets[i] = new Bullets(player.x, player.y, mouse.x, mouse.y);
+        //enemy[a] = new Enemy(random(0, windowWidth), random(0, windowHeight));
         //create new enemies
       }
-
     }
   }
 }
@@ -138,7 +136,7 @@ class Bullets {
     this.bulletVisible = false;
   }
 
-  hitEnemy(e) {
+  hitEnemy() {
     return false;
   }
   move() {
@@ -212,7 +210,7 @@ class Enemy {
     center = createVector(player.x, player.y);
     this.enemyVector.sub(center);
     this.enemyVector.normalize();
-    this.enemyVector.mult(-1);
+    this.enemyVector.mult(-5);
     this.x += this.enemyVector.x;
     this.y += this.enemyVector.y;
   }
