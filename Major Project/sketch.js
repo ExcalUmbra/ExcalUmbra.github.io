@@ -5,21 +5,20 @@
 // Extra for Experts:
 // - describe what you did to take this project "above and beyond"
 
-let player;
+let player, shield;
 let up, down, left, right = false;
 let bullets = [];
-let shield;
 let mouse, center;
 let V0;
 let enemy = [];
-
+let newX, newY;
 function setup() {
   createCanvas(windowWidth, windowHeight);
   smooth();
   V0 = createVector(1, 0);
   player = new Player(width / 2, height / 2);
   shield = new Shield(player.x, player.y);
-  enemy = new Enemy(player.x, player.y);
+  enemy.push(new Enemy(player.x, player.y));
 }
 
 function makeMouseVector() {
@@ -33,7 +32,6 @@ function makeMouseVector() {
 
 function mousePressed() {
   line(player.x, player.y, player.x + mouse.x, player.y + mouse.y);
-  print(player.x, player.y, player.x + mouse.x, player.y + mouse.y);
   stroke(2);
   bullets.push(new Bullets(player.x, player.y, mouse.x, mouse.y));
 }
@@ -45,8 +43,10 @@ function draw() {
   player.display();
   shield.move(player.x, player.y);
   shield.display();
-  enemy.move();
-  enemy.display();
+  for (let a = 0; a < enemy.length; a++) {
+    enemy[a].move();
+    enemy[a].display();
+  }
   //for loop, 1ce for each enemy
   //bull...[i].checkE
   for (let i = 0; i < bullets.length; i++) {
@@ -54,15 +54,33 @@ function draw() {
     bullets[i].display();
     for (let a = 0; a < enemy.length; a++) {
       if (bullets[i].hitEnemy(enemy[a])) {
-        bullets.splice(i, 1, new Bullets);
-        enemy.splice(a, 1, new Enemy);
-        //bullets[i] = new Bullets(player.x, player.y, mouse.x, mouse.y);
-        //enemy[a] = new Enemy(random(0, windowWidth), random(0, windowHeight));
+        bullets.splice(i, 1);
+        enemy.splice(a, 1);
+        a--;
+        i--;
         //create new enemies
+        //enemy.push(new Enemy(random(255), random(255)));
+        //enemy.push(new Enemy(random(255), random(255)));
+        createEnemy();
+        //if (bullets.length < 1) break;
       }
     }
   }
 }
+
+function createEnemy() {
+  while (enemy === true) {
+    newX = random(255), random(255);
+    newY = random(255), random(255);
+    dist(newX, newY, player.x, player.y);
+    if (dist > 500 === enemy) {
+      enemy.push(new Enemy(newX, newY));
+      if (bullets.length < 1) break;
+    }
+  }
+}
+
+
 class Player {
   constructor() {
     this.x = width / 2;
@@ -74,7 +92,6 @@ class Player {
   move() {
     this.xSpeed = 15;
     this.ySpeed = 15;
-    print(up, down, left, right);
     if (up === true) {
       if (this.y > 34) {
         this.y -= this.xSpeed;
@@ -136,7 +153,12 @@ class Bullets {
     this.bulletVisible = false;
   }
 
-  hitEnemy() {
+  hitEnemy(e) {
+    if (this.x + this.size > e.x && this.x < e.x + e.size) {
+      if (this.y + this.size > e.y && this.y < e.y + e.size) {
+        return true;
+      }
+    }
     return false;
   }
   move() {
@@ -196,8 +218,8 @@ class Shield {
 
 class Enemy {
   constructor(x_, y_) {
-    this.x = random(0, windowWidth);
-    this.y = random(0, windowHeight);
+    this.x = x_;
+    this.y = y_;
     this.size = 50;
     this.angle = 0;
     this.xSpeed;
