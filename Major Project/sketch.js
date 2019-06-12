@@ -58,27 +58,27 @@ function draw() {
         enemy.splice(a, 1);
         a--;
         i--;
-        //create new enemies
-        //enemy.push(new Enemy(random(255), random(255)));
-        //enemy.push(new Enemy(random(255), random(255)));
         createEnemy();
-        //if (bullets.length < 1) break;
+        //enemy.push(new Enemy(random(255), random(255)));
+        //enemy.push(new Enemy(random(255), random(255)));
+        if (bullets.length < 1) break;
       }
     }
   }
 }
 
 function createEnemy() {
-  while (enemy === true) {
-    newX = random(255), random(255);
-    newY = random(255), random(255);
-    dist(newX, newY, player.x, player.y);
-    if (dist > 500 === enemy) {
+  while (true) {
+    newX = random(0, windowWidth, windowHeight);
+    newY = random(0, windowWidth, windowHeight);
+    let distTotal = dist(newX, newY, player.x / 8, player.y / 8);
+    if (distTotal > 500) {
       enemy.push(new Enemy(newX, newY));
-      if (bullets.length < 1) break;
+      break;
     }
   }
 }
+
 
 
 class Player {
@@ -128,6 +128,7 @@ class Player {
     pop();
   }
 }
+
 function keyPressed() {
   if (keyCode === UP_ARROW) up = true;
   if (keyCode === DOWN_ARROW) down = true;
@@ -141,6 +142,7 @@ function keyReleased() {
   if (keyCode === LEFT_ARROW) left = false;
   if (keyCode === RIGHT_ARROW) right = false;
 }
+
 class Bullets {
   constructor(x_, y_, xSpeed_, ySpeed_) {
     this.x = x_;
@@ -201,7 +203,6 @@ class Shield {
   }
 
 
-
   display() {
     ellipseMode(CENTER);
     stroke(0, 0, 244);
@@ -232,7 +233,7 @@ class Enemy {
     center = createVector(player.x, player.y);
     this.enemyVector.sub(center);
     this.enemyVector.normalize();
-    this.enemyVector.mult(-5);
+    this.enemyVector.mult(-10);
     this.x += this.enemyVector.x;
     this.y += this.enemyVector.y;
   }
