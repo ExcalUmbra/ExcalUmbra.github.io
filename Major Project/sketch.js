@@ -12,13 +12,14 @@ let mouse, center;
 let V0;
 let enemy = [];
 let newX, newY;
+
 function setup() {
   createCanvas(windowWidth, windowHeight);
   smooth();
   V0 = createVector(1, 0);
   player = new Player(width / 2, height / 2);
   shield = new Shield(player.x, player.y);
-  enemy.push(new Enemy(player.x, player.y));
+  enemy.push(new Enemy(random(0, windowWidth * 2), random(0, windowHeight * 2)));
 }
 
 function makeMouseVector() {
@@ -34,6 +35,17 @@ function mousePressed() {
   line(player.x, player.y, player.x + mouse.x, player.y + mouse.y);
   stroke(2);
   bullets.push(new Bullets(player.x, player.y, mouse.x, mouse.y));
+}
+
+function delayTime() {
+  noStroke();
+  fill(0);
+  textAlign(CENTER);
+  text('click to play', width / 2, height / 2);
+}
+
+function mouseClicked() {
+
 }
 
 function draw() {
@@ -68,16 +80,19 @@ function draw() {
 }
 
 function createEnemy() {
-  while (true) {
-    newX = random(0, windowWidth, windowHeight);
-    newY = random(0, windowWidth, windowHeight);
-    let distTotal = dist(newX, newY, player.x / 8, player.y / 8);
-    if (distTotal > 500) {
-      enemy.push(new Enemy(newX, newY));
-      break;
+  for (let spawn = 0; spawn < 1; spawn++) {
+    while (true) {
+      newX = random(0, windowWidth, windowHeight);
+      newY = random(0, windowWidth, windowHeight);
+      let distTotal = dist(newX * 2, newY * 2, player.x * 8, player.y * 8);
+      if (distTotal > 500) {
+        enemy.push(new Enemy(newX, newY));
+        break;
+      }
     }
   }
 }
+
 
 
 
@@ -233,7 +248,7 @@ class Enemy {
     center = createVector(player.x, player.y);
     this.enemyVector.sub(center);
     this.enemyVector.normalize();
-    this.enemyVector.mult(-10);
+    this.enemyVector.mult(-8);
     this.x += this.enemyVector.x;
     this.y += this.enemyVector.y;
   }
