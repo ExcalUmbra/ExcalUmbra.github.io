@@ -4,7 +4,9 @@
 //
 // Extra for Experts:
 // - describe what you did to take this project "above and beyond"
-
+let createNewEnemy, gameStart = false;
+let gameStartCount = 0;
+let createEnemyTimer = 0;
 let player, shield;
 let up, down, left, right = false;
 let bullets = [];
@@ -32,55 +34,91 @@ function makeMouseVector() {
 }
 
 function mousePressed() {
-  line(player.x, player.y, player.x + mouse.x, player.y + mouse.y);
-  stroke(2);
-  bullets.push(new Bullets(player.x, player.y, mouse.x, mouse.y));
-}
-
-function delayTime() {
-  noStroke();
-  fill(0);
-  textAlign(CENTER);
-  text('click to play', width / 2, height / 2);
-}
-
-function mouseClicked() {
+  if (gameStart === false) {
+    gameStart = true;
+    gameStartCount = 120;
+  }
+  else if (gameStart === true && gameStartCount < 1) {
+    line(player.x, player.y, player.x + mouse.x, player.y + mouse.y);
+    stroke(2);
+    bullets.push(new Bullets(player.x, player.y, mouse.x, mouse.y));
+  }
 
 }
 
 function draw() {
   background(225);
-  makeMouseVector();
-  player.move();
-  player.display();
-  shield.move(player.x, player.y);
-  shield.display();
-  for (let a = 0; a < enemy.length; a++) {
-    enemy[a].move();
-    enemy[a].display();
+  if (gameStart === false) {
+    background(0);
+    noStroke();
+    fill(255);
+    textAlign(CENTER);
+    textSize(100);
+    text('Click to Play', width / 2, height / 2);
   }
-  //for loop, 1ce for each enemy
-  //bull...[i].checkE
-  for (let i = 0; i < bullets.length; i++) {
-    bullets[i].move();
-    bullets[i].display();
+  else if (gameStart === true && gameStartCount > 0) {
+    gameStartCount--
+    if (gameStartCount > 90){
+      fill(0);
+      textAlign(CENTER);
+      textSize(400);
+      text('3', width / 2, height / 2);
+    }
+    else if (gameStartCount > 60){
+      fill(0);
+      textAlign(CENTER);
+      textSize(400);
+      text('2', width / 2, height / 2);
+    }
+    else if(gameStartCount > 30){
+      fill(0);
+      textAlign(CENTER);
+      textSize(400);
+      text('1', width / 2, height / 2);
+    }
+  }
+  else {
+    makeMouseVector();
+    player.move();
+    player.display();
+    shield.move(player.x, player.y);
+    shield.display();
     for (let a = 0; a < enemy.length; a++) {
-      if (bullets[i].hitEnemy(enemy[a])) {
-        bullets.splice(i, 1);
-        enemy.splice(a, 1);
-        a--;
-        i--;
+      enemy[a].move();
+      enemy[a].display();
+    }
+    //for loop, 1ce for each enemy
+    //bull...[i].checkE
+    for (let i = 0; i < bullets.length; i++) {
+      bullets[i].move();
+      bullets[i].display();
+      for (let a = 0; a < enemy.length; a++) {
+        if (bullets[i].hitEnemy(enemy[a])) {
+          bullets.splice(i, 1);
+          enemy.splice(a, 1);
+          a--;
+          i--;
+          createEnemyTimer = 30;
+          createNewEnemy = true;
+          //enemy.push(new Enemy(random(255), random(255)));
+          //enemy.push(new Enemy(random(255), random(255)));
+          if (bullets.length < 1) break;
+        }
+      }
+
+    }
+    if (createEnemyTimer > 0 && createNewEnemy == true) {
+      createEnemyTimer -= 1;
+      if (createEnemyTimer === 0) {
+        createNewEnemy = false;
         createEnemy();
-        //enemy.push(new Enemy(random(255), random(255)));
-        //enemy.push(new Enemy(random(255), random(255)));
-        if (bullets.length < 1) break;
       }
     }
   }
 }
 
 function createEnemy() {
-  for (let spawn = 0; spawn < 1; spawn++) {
+  for (let spawn = 1; spawn < 3; spawn++) {
     while (true) {
       newX = random(0, windowWidth, windowHeight);
       newY = random(0, windowWidth, windowHeight);
@@ -195,7 +233,7 @@ class Bullets {
     }
   }
   display() {
-    rectMode(CENTER);
+    rectMode(CORNER);
     fill(244, 2, 2);
     noStroke();
     push();
