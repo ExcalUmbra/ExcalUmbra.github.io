@@ -50,30 +50,30 @@ function draw() {
   background(225);
   if (gameStart === false) {
     background(0);
-    noStroke();
-    fill(255);
+    strokeWeight(2);
+    fill(128 + sin(frameCount * 0.1) * 128);
     textAlign(CENTER);
     textSize(100);
     text('Click to Play', width / 2, height / 2);
   }
   else if (gameStart === true && gameStartCount > 0) {
     gameStartCount--
-    if (gameStartCount > 90){
+    if (gameStartCount > 90) {
       fill(0);
       textAlign(CENTER);
-      textSize(400);
+      textSize(200);
       text('3', width / 2, height / 2);
     }
-    else if (gameStartCount > 60){
+    else if (gameStartCount > 60) {
       fill(0);
       textAlign(CENTER);
-      textSize(400);
+      textSize(200);
       text('2', width / 2, height / 2);
     }
-    else if(gameStartCount > 30){
+    else if (gameStartCount > 30) {
       fill(0);
       textAlign(CENTER);
-      textSize(400);
+      textSize(200);
       text('1', width / 2, height / 2);
     }
   }
@@ -94,7 +94,7 @@ function draw() {
       bullets[i].display();
       for (let a = 0; a < enemy.length; a++) {
         if (bullets[i].hitEnemy(enemy[a])) {
-          bullets.splice(i, 1);
+          bullets.splice(i, 2);
           enemy.splice(a, 1);
           a--;
           i--;
@@ -130,9 +130,6 @@ function createEnemy() {
     }
   }
 }
-
-
-
 
 class Player {
   constructor() {
