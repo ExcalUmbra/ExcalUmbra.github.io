@@ -10,11 +10,12 @@ let createEnemyTimer = 0;
 let player, shield;
 let up, down, left, right = false;
 let bullets = [];
+let enemy = [];
 let mouse, center;
 let V0;
-let enemy = [];
 let newX, newY;
-
+let healthBar = [];
+let armor;
 function setup() {
   createCanvas(windowWidth, windowHeight);
   smooth();
@@ -22,6 +23,8 @@ function setup() {
   player = new Player(width / 2, height / 2);
   shield = new Shield(player.x, player.y);
   enemy.push(new Enemy(random(0, windowWidth * 2), random(0, windowHeight * 2)));
+  healthBar = new HealthBar(player.x, player.y);
+  armor = new Armor(player.x, player.y);
 }
 
 function makeMouseVector() {
@@ -79,6 +82,15 @@ function draw() {
   }
   else {
     makeMouseVector();
+    for (let s = 0; s < healthBar.length; s++) {
+      healthBar.display();
+      for (let r = 0; r < enemy.length; r++) {
+        if (healthBar[s].playerHit(enemy[r])) {
+          healthBar -= 25;
+        }
+      }
+    }
+    armor.display();
     player.move();
     player.display();
     shield.move(player.x, player.y);
@@ -94,7 +106,7 @@ function draw() {
       bullets[i].display();
       for (let a = 0; a < enemy.length; a++) {
         if (bullets[i].hitEnemy(enemy[a])) {
-          bullets.splice(i, 2);
+          bullets.splice(i, 1);
           enemy.splice(a, 1);
           a--;
           i--;
@@ -118,7 +130,7 @@ function draw() {
 }
 
 function createEnemy() {
-  for (let spawn = 1; spawn < 3; spawn++) {
+  for (let spawn = 0; spawn < 3; spawn++) {
     while (true) {
       newX = random(0, windowWidth, windowHeight);
       newY = random(0, windowWidth, windowHeight);
@@ -296,5 +308,53 @@ class Enemy {
     rotate(radians(this.angle));
     rect(0, 0, this.size, this.size);
     pop();
+  }
+}
+
+class HealthBar {
+  constructor(x_, y_) {
+    this.x = x_;
+    this.y = y_;
+    this.size;
+    this.health = 200;
+  }
+  playerHit(d) {
+    if (this.x + this.size > d.x && this.x < d.x + d.size) {
+      if (this.y + this.size > d.y && this.y < d.y + d.size) {
+        return true;
+      }
+    }
+    return false;
+  }
+  display() {
+    stroke(0.1);
+    fill(0);
+    text('HP : 200', player.x + 120, player.y - 60);
+    textSize(15);
+    textAlign(RIGHT);
+    rectMode(CORNER);
+    stroke(2);
+    fill(50, 205, 50);
+    rect(player.x + 80, player.y - 50, 75, 10);
+  }
+}
+
+class Armor {
+  constructor() {
+
+  }
+  shieldHit() {
+
+  }
+  display() {
+    stroke(0.1);
+    fill(0);
+    text('AR : 200', player.x + 120, player.y - 80);
+    textSize(15);
+    textAlign(RIGHT);
+    rectMode(CORNER);
+    stroke(2);
+    fill(0, 0, 255);
+    rect(player.x + 80, player.y - 50, 75, 10);
   }
 }
