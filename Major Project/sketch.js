@@ -82,14 +82,7 @@ function draw() {
   }
   else {
     makeMouseVector();
-    for (let s = 0; s < healthBar.length; s++) {
-      healthBar.display();
-      for (let r = 0; r < enemy.length; r++) {
-        if (healthBar[s].playerHit(enemy[r])) {
-          healthBar -= 25;
-        }
-      }
-    }
+    healthBar.display();
     armor.display();
     player.move();
     player.display();
@@ -318,13 +311,8 @@ class HealthBar {
     this.size;
     this.health = 200;
   }
-  playerHit(d) {
-    if (this.x + this.size > d.x && this.x < d.x + d.size) {
-      if (this.y + this.size > d.y && this.y < d.y + d.size) {
-        return true;
-      }
-    }
-    return false;
+  move() {
+
   }
   display() {
     stroke(0.1);
